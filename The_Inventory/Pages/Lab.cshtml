@@ -1,0 +1,81 @@
+﻿@page
+@model LabModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="main_container">
+
+    @{
+
+        if (Model.Message != "")
+        {
+
+                <div class="alert alert-success">@Model.Message</div>
+
+        }
+
+    }
+
+
+    <div class="header" style="height: 110px">
+        <div class="header_title">Chemical Stock</div>
+        <div class="money_indicator">
+            <div class="money_amount">1024</div>
+            <i class="material-icons money_icon">bubble_chart</i>
+        </div>
+    </div>
+
+    <div class="chemical_repo">
+        @foreach (var reaction in Model.allReactions)
+        {
+
+            <div class="card" style="width: 18rem; margin: 10px 0 0 10px; float: left; height: 275px;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black">@reaction.Name</h5>
+                    @foreach (var rawChemical in reaction.RawChemical)
+                    {
+                        @if (rawChemical != "")
+                        {
+                            <p class="card-text" style="color: black">@rawChemical</p>
+                        }
+                    }
+
+                    @*@foreach(var rawChemicalQuantity in reaction.RawChemicalQuantity)
+                        {
+                            if (rawChemicalQuantity != "0")
+                            {
+                                <p class="card-text" style="color: black">@rawChemicalQuantity</p>
+                            }
+                        }*@
+
+                    <form method="post"
+                          asp-page-handler="craft"
+                          asp-route-name="@reaction.Name"
+                          asp-route-state="@reaction.State"
+                          asp-route-catergory="@reaction.Category">
+
+                        @{
+
+                            foreach (var rawChemical in reaction.RawChemical)
+                            {
+
+                                <input type="hidden" name="rawChemical[]" value="@rawChemical" />
+                            }
+
+                        }
+
+                        }
+
+                        @*<input type="password" class="form-control" name="verify" placeholder="Access Key" style="width: 80%; float: left; margin-right: 5px;" />*@
+
+                        <input class="btn btn-success" type="submit" value="Craft" style="float: left" />
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+
+
+</div>
+

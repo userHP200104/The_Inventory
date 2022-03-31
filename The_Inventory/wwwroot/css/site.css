@@ -1,32 +1,32 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
+/*a.navbar-brand {
+    text-align: center;
+    font-size: 24px;
+    padding: 50px 20px 0px 20px;
+}*/
 
 /* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+/*a {
+  color: #fff;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+a:hover {
+    color: #00FFA0;
+    text-decoration: none;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
+li {
+    list-style: none;
+    font-size: 20px;
+    padding: 25px 0px;
+
+}*/
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+/*html {
   font-size: 14px;
 }
 @media (min-width: 768px) {
@@ -49,23 +49,307 @@ html {
 button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
-}
+}*/
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+/*html {
   position: relative;
   min-height: 100%;
 }
 
-body {
+body {*/
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  /*margin-bottom: 60px;
+  background: #070707;
 }
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: 60px;*/ /* Vertically center the text there */
+/*}*/
+
+
+/* Side Nav
+-------------------------------------------------- */
+
+/*.side_nav {
+    width: 15vw;
+    height: 100vh;
+    position: absolute;
+    background-color: #070707;
+    border-top: 3px solid #00FFA0;
+    border-right: 3px solid #00FFA0;
+    border-bottom: 3px solid #00FFA0;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
 }
+
+.nav_icons {
+    margin: 0px 30px 0 -20px;
+    padding: 10px 0px 0px 0px;
+    font-size: 34px !important;
+}
+
+.location_card {
+    color: #fff;
+    border: 2px solid #00FFA0;
+    border-radius: 10px;
+    text-align: center;
+}*/
+
+/* Home Page
+-------------------------------------------------- */
+
+/*.home_page {
+    color: #fff;
+}
+
+.molecule_card {
+    width: 136px;
+    height: 175px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    float: left;
+}
+
+.recommended_text {
+    margin-top: 260px !important;
+}*/
+
+body, nav, h1, h2, h3, h4, h5, h6, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #070707;
+    font-family: 'Raleway', sans-serif;
+}
+
+/* Side Nav
+------------------------------------ */
+
+nav {
+    width: 240px;
+    height: 100vh;
+    /* max-height: 731px; */
+    color: #fff;
+    text-align: center;
+    outline: 3px solid #00ffa0;
+    border-radius: 0px 25px 25px 0px;
+    overflow: scroll;
+    float: left;
+}
+
+a {
+    color: #fff;
+}
+
+.nav_logo {
+    padding: 42px 0;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.nav_btns {
+    width: 120px;
+    margin: 0 auto;
+    border-top: 1px solid #00ffa0;
+    border-bottom: 1px solid #00ffa0;
+}
+
+.button {
+    width: 172px;
+    margin: 16px -57px;
+    padding: 24px 40px 30px 40px;
+    text-align: left;
+    color: #fff;
+}
+
+.btn_style {
+    margin: -25px 30px;
+    padding: 0 0 0 0;
+    float: left;
+}
+
+.nav_btn_active {
+    border: 2px solid #00ffa0
+}
+
+.btn_icon {
+    margin: -8px 14px 0 0;
+    padding: 0 0;
+    float: left;
+    /* font-size: 16px !important; */
+}
+
+.location_card {
+    width: 160px;
+    margin: 200px auto 0px auto;
+    padding: 20px 0 60px 0;
+    border-radius: 10px;
+    border: 2px solid #00ffa0;
+}
+
+.location_icon {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00ffa0;
+}
+
+.location_subtitle {
+    font-weight: 400;
+    font-size: 10px;
+    padding: 10px 0;
+    color: #00ffa0;
+}
+
+.location_name {
+    font-weight: 400;
+    font-size: 16px;
+    margin: -5px 0 0 0;
+}
+
+.stock_divider {
+    width: 24px;
+    margin: 20px auto 60px auto;
+    border-top: 1px solid #00ffa0;
+}
+
+.stock_title {
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0 0 16px 0;
+}
+
+.stock_holder {
+    margin: 0 22px;
+}
+
+.stock {
+    margin: 0 4px;
+    text-align: center;
+    float: left;
+}
+
+.stock_amount {
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.stock_name {
+    font-size: 9px;
+    font-weight: 300;
+    margin: 4px 0 0 0;
+}
+
+/* Home screen
+------------------------------------ */
+
+.main_container {
+    width: 1440px;
+    margin: 50px 0px 72px -40px;
+    color: #fff;
+    float: left;
+    overflow: hidden;
+}
+
+
+.header_title {
+    font-size: 70px;
+    font-weight: 300;
+    float: left;
+}
+
+.money_indicator {
+    margin: 30px 0px 20px 0px;
+    float: right;
+}
+
+.money_amount {
+    font-size: 32px;
+    font-weight: 300;
+    float: left;
+}
+
+.money_icon {
+    font-size: 32px !important;
+    color: #FFD000;
+    float: left;
+}
+
+.card_container_title {
+    margin-top: -40px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.sugested_title {
+    position: fixed;
+}
+
+.recommended_title {
+    position: fixed;
+}
+
+.card_container {
+    height: 250px;
+    margin-top: 160px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.suggested_container {
+    margin: 90px 0 0 0;
+}
+
+.recommended_container {
+    margin: 60px 0 0 0;
+}
+
+.suggested_card {
+    width: 164px;
+    height: 240px;
+    margin: 0px 32px 64px 0;
+    flex: 0 0 auto;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    float: left;
+}
+
+.molecule_cost {
+    margin: 10px 0 0 95px;
+    float: left;
+}
+
+.molecule_cost_icon {
+    margin: 10px 0 0 0;
+    color: #FFD000;
+}
+
+.molecule_image {
+    text-align: center;
+    font-size: 30px;
+}
+
+.atoms {
+    color: #00F0FF;
+    font-weight: bold
+}
+
+.recommended_card {
+    width: 164px;
+    height: 240px;
+    margin: 0px 32px 64px 0;
+    flex: 0 0 auto;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    float: left;
+}
+

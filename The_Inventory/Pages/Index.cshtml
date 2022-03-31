@@ -1,10 +1,78 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="main_container">
+
+    <div class="header">
+        <div class="header_title">Welcome back</div>
+        <div class="money_indicator">
+            <div class="money_amount">1024</div>
+            <i class="material-icons money_icon">bubble_chart</i>
+        </div>
+    </div>
+
+    <div class="suggested_container">
+        <div class="card_container_title sugested_title">Suggested Molecules: </div>
+        <div class="card_container">
+
+            @foreach (var chemical in Model.allChemicals)
+            {
+                <div class="suggested_card">
+                    <div class="molecule_cost_indicator">
+                        <div class="molecule_cost">1024</div>
+                        <i class="material-icons molecule_cost_icon">bubble_chart</i>
+                    </div>
+                    <div class="molecule_image">H<span class="atoms">:</span>O<span class="atoms">:</span>H</div>
+                    <div class="molecule_name">Water (H<sub>2</sub>O)</div>
+                    <div class="chemical_needed">
+                        <span class="chemical">
+                            <div class="chemical_amount">2<sub style="color: #00ffa0; font-size: 10px;">l</sub></div>
+                            <div class="chemical_name">hydrogen</div>
+                        </span>
+                        <span class="chemical">
+                            <div class="chemical_amount">1<sub style="color: #00ffa0; font-size: 10px;">l</sub></div>
+                            <div class="chemical_name">oxygen</div>
+                        </span>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+        
+    <div class="recommended_container">
+        <div class="card_container_title recommended_title">Recommended Purchase: </div>
+        <div class="card_container">
+
+    @for (int j = 0; j < 10; j++)
+    {
+            <div class="recommended_card">
+                <div class="molecule_cost_indicator">
+                    <div class="molecule_cost">1024</div>
+                    <i class="material-icons molecule_cost_icon">bubble_chart</i>
+                </div>
+                <div class="molecule_image">H:O:H</div>
+                <div class="molecule_name">Water (H<sub>2</sub>O)</div>
+                <div class="chemical_needed">
+                    <span class="chemical">
+                        <div class="chemical_amount">2<sub style="color: #00ffa0; font-size: 10px;">l</sub></div>
+                        <div class="chemical_name">hydrogen</div>
+                    </span>
+                    <span class="chemical">
+                        <div class="chemical_amount">1<sub style="color: #00ffa0; font-size: 10px;">l</sub></div>
+                        <div class="chemical_name">oxygen</div>
+                    </span>
+                </div>
+            </div>
+    }
+
+            
+        </div>
+    </div>
+
 </div>

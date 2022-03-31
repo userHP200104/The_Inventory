@@ -1,0 +1,43 @@
+﻿@page
+@model WarehouseModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+
+<div class="main_container">
+
+    <div class="header">
+        <div class="money_indicator">
+            <div class="money_amount">1024</div>
+            <i class="material-icons money_icon">bubble_chart</i>
+        </div>
+    </div>
+
+    @foreach (var location in Model.allLocation)
+    {
+<div class="card" style="width: 18rem; margin: 10px 0 0 10px; float: left;">
+    <div class="card-body">
+        <h5 class="card-title" style="color: black">@location.Name</h5>
+        <p class="card-text" style="color: black">@location.Address</p>
+
+        @{
+            if (location.LocationActive)
+            {
+
+                <input class="btn btn-success" type="submit" value="Transfer" style="float: left" />
+
+            }
+            else
+            {
+
+                <input class="btn btn-success" type="submit" value="Switch" style="float: left" />
+
+            }
+
+        }
+    </div>
+</div>
+    }
+
+</div>
