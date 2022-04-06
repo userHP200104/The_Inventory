@@ -22,13 +22,15 @@ namespace The_Inventory.Pages
         }
 
         public List<Chemical> allChemicals = new List<Chemical>();
-        
+        public List<Location> allLocation = new List<Location>();
+
 
         public void OnGet()
         {
             Message = Database.GetVersion();
 
             allChemicals = new Inventory().Chemicals;
+            allLocation = new Inventory().Locations;
 
         }
 

@@ -1,6 +1,4 @@
-﻿@model The_Inventory.Pages.Shared._LayoutModel
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -41,13 +39,13 @@
                 </a>
             </div>
 
-            @foreach (var location in Model.activeLocation)
-            {
+            @*@foreach (var location in Model.activeLocation)
+            {*@
 
                 <div class="location_card">
                     <i class="material-icons location_icon">location_on</i>
                     <h6 class="location_subtitle">you are here</h6>
-                    <h3 class="location_name">@location.Name</h3>
+                    <h3 class="location_name">location.Name</h3>
                     <div class="stock_divider"></div>
                     <div class="stock_title">stock</div>
                     <div class="stock_holder">
@@ -65,7 +63,7 @@
                         </span>
                     </div>
                 </div>
-            }
+            @*}*@
 
 
         </nav>

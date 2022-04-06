@@ -9,7 +9,16 @@
 
     <div class="header">
         <div class="money_indicator">
-            <div class="money_amount">1024</div>
+            @{
+                foreach (var location in Model.allLocation)
+                {
+                    if(location.LocationActive == true)
+                        {
+                            <div class="money_amount">@location.Money</div>
+
+                        }
+                }
+              }
             <i class="material-icons money_icon">bubble_chart</i>
         </div>
     </div>
@@ -30,13 +39,23 @@
             }
             else
             {
+    <form method="post"
+          asp-page-handler="switch"
+          asp-route-name="@location.Name"
+          asp-route-address="@location.Address"
+          asp-route-money="@location.Money"
+          asp-route-loactionActive="@location.LocationActive">
 
-                <input class="btn btn-success" type="submit" value="Switch" style="float: left" />
+        <input type="hidden" name="status" value="@location.LocationActive" />
 
-            }
+        <input class="btn btn-success" type="submit" value="Switch" style="float: left" />
 
-        }
-    </div>
+    </form>
+
+                    }
+
+                    }
+            </div>
 </div>
     }
 

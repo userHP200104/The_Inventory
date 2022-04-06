@@ -8,9 +8,18 @@
 <div class="main_container">
 
     <div class="header">
-        <div class="header_title">Welcome back</div>
+        <div class="header_title_home">Welcome back</div>
         <div class="money_indicator">
-            <div class="money_amount">1024</div>
+            @{
+                foreach (var location in Model.allLocation)
+                {
+                    if (location.LocationActive == true)
+                    {
+                        <div class="money_amount">@location.Money</div>
+
+                    }
+                }
+            }
             <i class="material-icons money_icon">bubble_chart</i>
         </div>
     </div>

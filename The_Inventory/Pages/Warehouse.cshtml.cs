@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using The_Inventory.Models;
+using The_Inventory.Services;
 
 namespace The_Inventory.Pages
 {
@@ -31,5 +32,18 @@ namespace The_Inventory.Pages
             //activeLocation = new Inventory().ActiveLocation;
 
         }
+
+        public IActionResult OnPostSwitch(string name, string address, string money, bool locationActive)
+        {
+
+            //Console.WriteLine(name, address, money, locationActive);
+
+            Database.deactivateAllLocations();
+            Database.switchLocation(name);
+
+            return Redirect($"./warehouse");
+        }
+
     }
+
 }

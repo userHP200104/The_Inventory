@@ -258,11 +258,17 @@ a {
     overflow: hidden;
 }
 
+.header_title_home {
+    font-size: 70px;
+    font-weight: 300;
+    float: left;
+}
 
 .header_title {
     font-size: 70px;
     font-weight: 300;
     float: left;
+    margin: 50px 660px 20px 20px;
 }
 
 .money_indicator {

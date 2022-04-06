@@ -23,17 +23,25 @@ namespace The_Inventory.Pages
 
         public string Message { get; set; } = string.Empty;
 
+        public List<Chemical> allChemical = new List<Chemical>();
         public List<Reaction> allReactions = new List<Reaction>();
+        public List<Location> allLocation = new List<Location>();
+
 
         public void OnGet(string message = "")
         {
 
             Message = message;
 
+
+            allChemical = new Inventory().Chemicals;
             allReactions = new Inventory().Reactions;
+            allLocation = new Inventory().Locations;
+
         }
 
-        public IActionResult OnPostCraft(string name, string state, string catergory)
+
+        public IActionResult OnPostCraft(string name, string state, string catergory, int activeLocation)
         {
 
             Console.WriteLine(name);
@@ -44,10 +52,12 @@ namespace The_Inventory.Pages
 
             bool hasReacted = false;
 
+            Console.WriteLine($"This is the active location id {activeLocation}");
+
             
             foreach(var chemical in rawChemical)
             {
-                if (Database.GetQuantity(chemical) != 0) 
+                if (Database.GetQuantity(chemical, activeLocation) != 0) 
                 {
                     hasReacted = true;
                     Console.WriteLine($"{chemical} is In Stock");
@@ -69,13 +79,13 @@ namespace The_Inventory.Pages
 
             if (hasReacted)
             {
-                Database.CreateReaction(name, state, catergory);
+                Database.CreateReaction(name, state, catergory, activeLocation);
 
                 foreach (var chemical in rawChemical)
                 {
                     if (chemical != "")
                     {
-                        Database.DecreaseRawChemical(chemical);
+                        Database.DecreaseRawChemical(chemical, activeLocation);
                     }
 
                 }

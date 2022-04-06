@@ -32,7 +32,7 @@ namespace The_Inventory.Services
 
 			// set up our query
 
-			string sql = "SELECT * FROM chemical WHERE location_id = '1';";
+			string sql = "SELECT * FROM chemical";
 			using var cmd = new MySqlCommand(sql, con); // performs this command which is sql and do it in the config
 
 			using MySqlDataReader reader = cmd.ExecuteReader();
@@ -131,7 +131,7 @@ namespace The_Inventory.Services
 		}
 
 
-		public static void CreateReaction(string name, string state, string catergory)
+		public static void CreateReaction(string name, string state, string catergory, int activeLocation)
         {
 			// creating a new connection to our db using our config and NuGet package
 			using var con = new MySqlConnection(serverConfiguration);
@@ -139,11 +139,12 @@ namespace The_Inventory.Services
 
 			// set up our query
 
-			string sql = "SELECT * FROM chemical WHERE name = @name AND location_id = 1;";
+			string sql = "SELECT * FROM chemical WHERE name = @name AND location_id = @activeLocation;";
 
 			using var cmd = new MySqlCommand(sql, con); 
 
 			cmd.Parameters.AddWithValue("@name", name);
+			cmd.Parameters.AddWithValue("@activeLocation", activeLocation);
 
 			using MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -174,7 +175,7 @@ namespace The_Inventory.Services
             }
             else
             {
-                InsertNewChemical(name, state, catergory);
+                InsertNewChemical(name, state, catergory, activeLocation);
             }
         }
 
@@ -195,19 +196,20 @@ namespace The_Inventory.Services
 			cmd.ExecuteNonQuery();
 		}
 
-		public static void InsertNewChemical(string name, string state, string catergory)
+		public static void InsertNewChemical(string name, string state, string catergory, int activeLocation)
         {
 			// creating a new connection to our db using our config and NuGet package
 			using var con = new MySqlConnection(serverConfiguration);
 			con.Open();
 
-			string sql= "INSERT INTO `chemical` (`location_id`, `name`, `quantity`, `cost`, `state`, `catergory`, `image`) VALUES ('1', @name, '1', '50', @state, @catergory, '/');";
+			string sql= "INSERT INTO `chemical` (`location_id`, `name`, `quantity`, `cost`, `state`, `catergory`, `image`) VALUES (@activeLocation, @name, '1', '50', @state, @catergory, '/');";
 
 			using var cmd = new MySqlCommand(sql, con);
 
 			cmd.Parameters.AddWithValue("@name", name);
 			cmd.Parameters.AddWithValue("@state", state);
 			cmd.Parameters.AddWithValue("@catergory", catergory);
+			cmd.Parameters.AddWithValue("@activeLocation", activeLocation);
 
 			cmd.Prepare();
 			cmd.ExecuteNonQuery();
@@ -248,18 +250,19 @@ namespace The_Inventory.Services
 				return rawChemical;
 		}
 
-		public static int GetQuantity(string name)
+		public static int GetQuantity(string name, int locationId)
         {
 			using var con = new MySqlConnection(serverConfiguration);
 			con.Open();
 
 			// set up our query
 
-			string sql = "SELECT * FROM chemical WHERE name = @name AND location_id = 1;";
+			string sql = "SELECT * FROM chemical WHERE name = @name AND location_id = @locationId;";
 
 			using var cmd = new MySqlCommand(sql, con); 
 
 			cmd.Parameters.AddWithValue("@name", name);
+			cmd.Parameters.AddWithValue("@locationId", locationId);
 
 			using MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -277,23 +280,24 @@ namespace The_Inventory.Services
 			return currentQuantity;
 		}
 
-		public static void DecreaseRawChemical(string name)
+		public static void DecreaseRawChemical(string name, int activeLocation)
         {
 
-			var currentQuantity = GetQuantity(name);
+			var currentQuantity = GetQuantity(name, activeLocation);
 
 			using var con = new MySqlConnection(serverConfiguration);
 			con.Open();
 
 			// set up our query
 
-			string sql = "UPDATE `chemical` SET `quantity`=@currentQuantity-1 WHERE `name` = @name AND `location_id` = '1';";
+			string sql = "UPDATE `chemical` SET `quantity`=@currentQuantity-1 WHERE `name` = @name AND `location_id` = @activeLocation;";
 
 			using var cmd = new MySqlCommand(sql, con); 
 
 
 			cmd.Parameters.AddWithValue("@name", name);
 			cmd.Parameters.AddWithValue("@currentQuantity", currentQuantity);
+			cmd.Parameters.AddWithValue("@activeLocation", activeLocation);
 
 
 			cmd.Prepare();
@@ -400,6 +404,8 @@ namespace The_Inventory.Services
 
 					var activeLocation = new Location()
 					{
+
+						Id = (reader.GetInt32(0)),
 						Name = (reader.GetString(1)),
 						Address = (reader.GetString(2)),
 						Money = (reader.GetInt32(3)),
@@ -413,6 +419,40 @@ namespace The_Inventory.Services
 			con.Close();
 
 			return results;
+		}
+
+		public static void switchLocation(string name)
+        {
+			using var con = new MySqlConnection(serverConfiguration);
+			con.Open();
+
+			// set up our query
+
+			string sql = "UPDATE `location` SET `location_active`= 1 WHERE `name` = @name";
+
+			using var cmd = new MySqlCommand(sql, con);
+
+			cmd.Parameters.AddWithValue("@name", name);
+
+
+			cmd.Prepare();
+			cmd.ExecuteNonQuery();
+
+		}
+
+		public static void deactivateAllLocations()
+        {
+			using var con = new MySqlConnection(serverConfiguration);
+			con.Open();
+
+			string sql = "UPDATE `location` SET `location_active`= 0 WHERE 1";
+
+			using var cmd = new MySqlCommand(sql, con);
+
+
+			cmd.Prepare();
+			cmd.ExecuteNonQuery();
+
 		}
 
 	}
