@@ -2,6 +2,20 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home";
+
+    var activeLocation = 0;
+    var locationMoney = 0;
+
+    foreach (var location in Model.allLocation)
+    {
+        if (location.LocationActive == true)
+        {
+            activeLocation = location.Id;
+            locationMoney = location.Money;
+            Console.WriteLine($"locationMoney {locationMoney}");
+            Console.WriteLine($"activeLocation {activeLocation}");
+        }
+    }
 }
 
 
@@ -24,7 +38,7 @@
         </div>
     </div>
 
-    <div class="suggested_container">
+    @*<div class="suggested_container">
         <div class="card_container_title sugested_title">Suggested Molecules: </div>
         <div class="card_container">
 
@@ -51,36 +65,57 @@
             }
 
         </div>
-    </div>
+    </div>*@
 
         
     <div class="recommended_container">
         <div class="card_container_title recommended_title">Recommended Purchase: </div>
         <div class="card_container">
 
-    @for (int j = 0; j < 10; j++)
-    {
-            <div class="recommended_card">
-                <div class="molecule_cost_indicator">
-                    <div class="molecule_cost">1024</div>
-                    <i class="material-icons molecule_cost_icon">bubble_chart</i>
-                </div>
-                <div class="molecule_image">H:O:H</div>
-                <div class="molecule_name">Water (H<sub>2</sub>O)</div>
-                <div class="chemical_needed">
-                    <span class="chemical">
-                        <div class="chemical_amount">2<sub style="color: #00ffa0; font-size: 10px;">l</sub></div>
-                        <div class="chemical_name">hydrogen</div>
-                    </span>
-                    <span class="chemical">
-                        <div class="chemical_amount">1<sub style="color: #00ffa0; font-size: 10px;">l</sub></div>
-                        <div class="chemical_name">oxygen</div>
-                    </span>
-                </div>
-            </div>
-    }
+        @foreach (var chemical in Model.allChemicals)
+        {
 
-            
+            if (chemical.Quantity <= 10 & chemical.Category == "raw" & chemical.LocationId == activeLocation)
+            {
+
+            <div class="recommended_card">
+                <div>
+                    <h1 class="image">@chemical.Image</h1>
+                </div>
+                <h3 class="chemical_name">@chemical.Name</h3>
+                <h4 class="chemcial_catergory">@chemical.Category</h4>
+
+                <div class="chemical_info">
+                    <h4 class="chemical_in_stock">
+                        In Stock
+                        <div class="number">@chemical.Quantity</div>
+                    </h4>
+
+                    <h4 class="chemical_cost">
+                        Price
+                        <div class="number">@chemical.Cost</div>
+                    </h4>
+                </div>
+                <div class="chemical_inputs">
+                    <form method="post"
+                          asp-page-handler="buy"
+                          asp-route-name="@chemical.Name"
+                          asp-route-locationId="@chemical.LocationId"
+                          asp-route-cost="@chemical.Cost"
+                          asp-route-quantity="@chemical.Quantity"
+                          asp-route-money="@locationMoney">
+
+                        <input class="number_input" name="newQuantity" value="0" type="number" min="0" step="1" />
+                        <input type="password" class="access_input" name="access" placeholder="Access Key" />
+                        <input class="card_btn" type="submit" value="Buy" />
+                    </form>
+                </div>
+
+            </div>
+            }
+        }
+
+
         </div>
     </div>
 

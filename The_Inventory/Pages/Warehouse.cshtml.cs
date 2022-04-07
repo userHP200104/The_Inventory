@@ -31,6 +31,7 @@ namespace The_Inventory.Pages
             allLocation = new Inventory().Locations;
             //activeLocation = new Inventory().ActiveLocation;
 
+
         }
 
         public IActionResult OnPostSwitch(string name, string address, string money, bool locationActive)

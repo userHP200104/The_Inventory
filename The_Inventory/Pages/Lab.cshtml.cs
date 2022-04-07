@@ -22,90 +22,136 @@ namespace The_Inventory.Pages
         }
 
         public string Message { get; set; } = string.Empty;
+        public string Danger{ get; set; } = string.Empty;
+        public string Warning { get; set; } = string.Empty;
 
         public List<Chemical> allChemical = new List<Chemical>();
         public List<Reaction> allReactions = new List<Reaction>();
+        //public List<Reaction> allReactionsQuantity = new List<Reaction>();
         public List<Location> allLocation = new List<Location>();
 
 
-        public void OnGet(string message = "")
+        public void OnGet(string message = "", string danger = "", string warning = "")
         {
 
             Message = message;
+            Danger = danger;
+            Warning = warning;
 
 
             allChemical = new Inventory().Chemicals;
             allReactions = new Inventory().Reactions;
+            //allReactionsQuantity = new Inventory().Reactions;
             allLocation = new Inventory().Locations;
 
         }
 
 
-        public IActionResult OnPostCraft(string name, string state, string catergory, int activeLocation)
+        public IActionResult OnPostReact(string name, string state, string catergory, int activeLocation, string access)
         {
 
-            Console.WriteLine(name);
-
-            var rawChemical = Database.GetRawChemical(name);
-
-            var chemicalOutOfStock = new HashSet<string>(); 
-
-            bool hasReacted = false;
-
-            Console.WriteLine($"This is the active location id {activeLocation}");
-
-            
-            foreach(var chemical in rawChemical)
+            if (Database.CheckReactAccess(name, access))
             {
-                if (Database.GetQuantity(chemical, activeLocation) != 0) 
-                {
-                    hasReacted = true;
-                    Console.WriteLine($"{chemical} is In Stock");
 
-                }
-                else
-                {
-                    if (chemical != "")
-                    { 
-                        chemicalOutOfStock.Add(chemical);
 
-                        hasReacted = false;
+                Console.WriteLine(name);
 
-                        Console.WriteLine($"{chemical} is Out of Stock");
-                    }
-                }
+                var rawChemical = Database.GetRawChemical(name);
 
-            }
+                var chemicalOutOfStock = new HashSet<string>();
 
-            if (hasReacted)
-            {
-                Database.CreateReaction(name, state, catergory, activeLocation);
+                var hasReacted = 0;
+
+                Console.WriteLine($"This is the active location id {activeLocation}");
+
 
                 foreach (var chemical in rawChemical)
                 {
-                    if (chemical != "")
+                    if (Database.GetQuantity(chemical, activeLocation) != 0)
                     {
-                        Database.DecreaseRawChemical(chemical, activeLocation);
+                        hasReacted = hasReacted;
+                        Console.WriteLine($"{chemical} is In Stock");
+
+                    }
+                    else
+                    {
+                        if (chemical != "")
+                        {
+                            chemicalOutOfStock.Add(chemical);
+
+                            hasReacted++;
+
+                            Console.WriteLine($"{chemical} is Out of Stock");
+                        }
                     }
 
                 }
 
-                return Redirect($"./Lab?message={name} has been crafted");
+                Console.WriteLine($"hasReacted = {hasReacted}");
+
+
+                if (hasReacted == 0)
+                {
+                    Database.CreateReaction(name, state, catergory, activeLocation);
+                    Database.Pay(name, activeLocation);
+
+                    foreach (var chemical in rawChemical)
+                    {
+                        if (chemical != "")
+                        {
+                            Database.DecreaseRawChemical(chemical, activeLocation);
+                        }
+
+                    }
+
+                    return Redirect($"./Lab?message={name} has been created");
+                }
+                else
+                {
+                    string outOfStock = "";
+
+                    foreach (var chemical in chemicalOutOfStock)
+                    {
+                        outOfStock = outOfStock + ", " + chemical;
+                    }
+
+                    return Redirect($"./Lab?warning=you need to stock up on {outOfStock}");
+                }
+
             }
             else
             {
-                string outOfStock = "";
-
-                foreach(var chemical in chemicalOutOfStock)
-                {
-                    outOfStock = outOfStock + ", " + chemical;
-                }
-
-                return Redirect($"./Lab?message=you need to stock up on {outOfStock}");
+                return Redirect($"./Lab?danger=you don't have access to this reaction");
             }
 
 
                 
+
+        }
+
+        public IActionResult OnPostBuy(string name, int locationId, int cost, int money, int newQuantity, string access)
+        {
+            if (newQuantity * cost <= money)
+            {
+
+                if(Database.CheckBuyAccess(name, access))
+                {
+                    Database.chemicalIncrease(name, locationId, newQuantity);
+                    Database.moneyDecrease(name, locationId, cost, money, newQuantity);
+
+                    return Redirect($"./Lab?message=you have bought {newQuantity} {name}");
+
+                }
+                else
+                {
+                    return Redirect($"./Lab?danger=you don't have acccess to buy chemicals");
+                }
+            }
+            else
+            {
+
+                    return Redirect($"./Lab?warning=you don't have enough money");
+            }
 
         }
 

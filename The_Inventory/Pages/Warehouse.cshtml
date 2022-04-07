@@ -25,38 +25,55 @@
 
     @foreach (var location in Model.allLocation)
     {
-<div class="card" style="width: 18rem; margin: 10px 0 0 10px; float: left;">
-    <div class="card-body">
-        <h5 class="card-title" style="color: black">@location.Name</h5>
-        <p class="card-text" style="color: black">@location.Address</p>
+<div class="location_cards">
+            <i class="material-icons location_icon">location_on</i>
+            <h6 class="location_subtitle">you are here</h6>
+                
+                    <h3 class="location_name">@location.Name</h3>
+                    <div class="stock_divider"></div>
+                    <div class="stock_title">stock</div>
+                    <div class="stock_holders">
+                        <span class="stock">
+                            <div class="stock_amounts">@Services.Database.getSolids(location.Id)<sub style="color: #00ffa0; font-size: 10px;">kg</sub></div>
+                            <div class="stock_name">solid</div>
+                        </span>
+                        <span class="stock">
+                            <div class="stock_amounts">@Services.Database.getLiquids(location.Id)<sub style="color: #00ffa0; font-size: 10px;">l</sub></div>
+                            <div class="stock_name">liquid</div>
+                        </span>
+                        <span class="stock">
+                            <div class="stock_amounts">@Services.Database.getGases(location.Id)<sub style="color: #00ffa0; font-size: 10px;">l</sub></div>
+                            <div class="stock_name">gas</div>
+                        </span>
+                    </div>
 
-        @{
-            if (location.LocationActive)
-            {
-
-                <input class="btn btn-success" type="submit" value="Transfer" style="float: left" />
-
+            @{
+                if (location.LocationActive)
+                {
+    
+                    <input class="transefer-btn" type="submit" value="Transfer" style="float: left" />
+    
+                }
+                else
+                {
+                    <form method="post"
+                          asp-page-handler="switch"
+                          asp-route-name="@location.Name"
+                          asp-route-address="@location.Address"
+                          asp-route-money="@location.Money"
+                          asp-route-loactionActive="@location.LocationActive">
+    
+                        <input type="hidden" name="status" value="@location.LocationActive" />
+    
+                        <input class="switch-btn" type="submit" value="Switch" style="float: left" />
+    
+                    </form>
+    
+                }
+    
             }
-            else
-            {
-    <form method="post"
-          asp-page-handler="switch"
-          asp-route-name="@location.Name"
-          asp-route-address="@location.Address"
-          asp-route-money="@location.Money"
-          asp-route-loactionActive="@location.LocationActive">
 
-        <input type="hidden" name="status" value="@location.LocationActive" />
-
-        <input class="btn btn-success" type="submit" value="Switch" style="float: left" />
-
-    </form>
-
-                    }
-
-                    }
-            </div>
-</div>
+        </div>
     }
 
 </div>

@@ -10,10 +10,12 @@
     <None Remove="Services\" />
     <None Remove="Models\" />
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <None Remove="XAct.Core.PCL" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="8.0.28" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="XAct.Core.PCL" Version="0.0.5014" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />

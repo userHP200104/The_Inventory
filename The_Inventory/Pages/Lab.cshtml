@@ -4,13 +4,17 @@
     ViewData["Title"] = "Home";
 
     var activeLocation = 0;
+    var locationMoney = 0;
+    var inStock = 0;
 
     foreach(var location in Model.allLocation)
     {
         if(location.LocationActive == true)
         {
             activeLocation = location.Id;
-            Console.WriteLine(activeLocation);
+            locationMoney = location.Money;
+            Console.WriteLine($"locationMoney {locationMoney}");
+            Console.WriteLine($"activeLocation {activeLocation}");
         }
     }
 }
@@ -26,27 +30,54 @@
 
         }
 
+        if (Model.Danger != "")
+        {
+
+            <div class="alert alert-danger">@Model.Danger</div>
+
+        }
+
+        if (Model.Warning != "")
+        {
+
+            <div class="alert alert-warning">@Model.Warning</div>
+
+        }
+
     }
 
 
-    <div class="header" style="height: 110px">
-        <div class="header_title">Chemical Stock</div>
-        <div class="money_indicator">
-            @{
-                foreach (var location in Model.allLocation)
-                {
-                    if (location.LocationActive == true)
-                    {
-                        <div class="money_amount">@location.Money</div>
 
-                    }
+    <ul class="nav nav-tabs" style="float: left;">
+        <li class="nav-item">
+            <p class="nav-link first-tab active chem">Chemical Inventory</p>
+        </li>
+        <li class="nav-item">
+            <p class="nav-link first-tab react">Reaction Lab</p>
+        </li>
+
+    </ul>
+
+    <div class="money_indicator">
+        @{
+            foreach (var location in Model.allLocation)
+            {
+                if (location.LocationActive == true)
+                {
+                    <div class="money_amount">@location.Money</div>
+
                 }
             }
-            <i class="material-icons money_icon">bubble_chart</i>
-        </div>
+        }
+        <i class="material-icons money_icon">bubble_chart</i>
     </div>
 
     <div class="chemical_repo">
+
+        <div class="header" style="height: 110px">
+            <div class="header_title">Chemical Inventory</div>
+        </div>
+
         @{
             foreach (var chemical in Model.allChemical)
             {
@@ -59,36 +90,62 @@
                     {
                         if (location.Id == chemical.LocationId)
                         {
-                            <div class="card" style="width: 18rem; margin: 10px 0 0 10px; float: left; height: 275px;">
-                                        <div class="card-body">
-                                            <h5 class="card-title" style="color: black">@chemical.Name</h5>
-                                            <p class="card-text" style="color: black">Quantity: @chemical.Quantity</p>
-                                            <p class="card-text" style="color: black">Cost: @chemical.Cost</p>
+
+                            <div class="chemical_card">
+                                <div>
+                                    <h1 class="image">@chemical.Image</h1>
+                                </div>
+                                <h3 class="chemical_name">@chemical.Name</h3>
+                                <h4 class="chemcial_catergory">raw</h4>
 
 
+                                @{
+                                    if (chemical.Category == "raw" || chemical.Category == "radioactive")
+                                    {
+                                        <div class="chemical_info">
+                                            <h4 class="chemical_in_stock">
+                                                In Stock
+                                                <div class="number">@chemical.Quantity</div>
+                                            </h4>
 
-                                            @*@foreach(var rawChemicalQuantity in reaction.RawChemicalQuantity)
-        {
-            if (rawChemicalQuantity != "0")
-            {
-                <p class="card-text" style="color: black">@rawChemicalQuantity</p>
-            }
-        }*@
-
+                                            <h4 class="chemical_cost">
+                                                Price
+                                                <div class="number">@chemical.Cost</div>
+                                            </h4>
+                                        </div>
+                                        <div class="chemical_inputs">
                                             <form method="post"
                                                   asp-page-handler="buy"
                                                   asp-route-name="@chemical.Name"
-                                                  asp-route-location="@chemical.LocationId"
+                                                  asp-route-locationId="@chemical.LocationId"
+                                                  asp-route-cost="@chemical.Cost"
                                                   asp-route-quantity="@chemical.Quantity"
-                                                  asp-route-catergory="@chemical.Cost">
-
-
-                                                @*<input type="password" class="form-control" name="verify" placeholder="Access Key" style="width: 80%; float: left; margin-right: 5px;" />*@
-
-                                                <input class="btn btn-success" type="submit" value="Buy" style="float: left" />
+                                                  asp-route-money="@locationMoney">
+                                                <input class="number_input" name="newQuantity" value="0" type="number" min="0" step="1" />
+                                                <input type="password" class="access_input" name="access" placeholder="Access Key" />
+                                                <input class="card_btn" type="submit" value="Buy" />
                                             </form>
                                         </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="chemical_info">
+                                            <h4 class="chemical_in_stock" style="margin: 0px 0 0 35px; ">
+                                                In Stock
+                                                <div class="number">@chemical.Quantity</div>
+                                            </h4>
+                                        </div>
+                                        <div class="chemical_inputs">
+                                            <form method="post">
+                                                <input class="card_btn" type="submit" value="Cannot Be Bought" disabled />
+                                            </form>
+                                        </div>
+                                    }
+
+                                }
+
                             </div>
+
                         }
 
                     }
@@ -96,35 +153,36 @@
             }
         }
 
+
+    </div>
+
+    <div class="reaction_repo">
+
         <div class="header" style="height: 110px">
-            <div class="header_title">Reaction Stock</div>
+            <div class="header_title">Reaction Lab</div>
         </div>
 
-        <div class="chemical_repo">
-            @foreach (var reaction in Model.allReactions)
-            {
 
-                <div class="card" style="width: 18rem; margin: 10px 0 0 10px; float: left; height: 275px;">
+        @foreach (var reaction in Model.allReactions)
+        {
+
+            @*<div class="card" style="width: 18rem; margin: 10px 0 0 10px; float: left; height: 275px;">
                     <div class="card-body">
                         <h5 class="card-title" style="color: black">@reaction.Name</h5>
-                        @foreach (var rawChemical in reaction.RawChemical)
+                        <h6 class="card-title" style="color: black">@reaction.Category</h6>
+
+                        @for (var i = 0; i < reaction.RawChemical.Count; i++)
                         {
-                            @if (rawChemical != "")
+                            if (reaction.RawChemical[i] != "" & reaction.RawChemicalQuantity[i] != 0)
                             {
-                                <p class="card-text" style="color: black">@rawChemical</p>
+                                <p class="card-text" style="color: black">@reaction.RawChemical[i] x @reaction.RawChemicalQuantity[i]</p>
                             }
+
                         }
 
-                        @*@foreach(var rawChemicalQuantity in reaction.RawChemicalQuantity)
-                        {
-                            if (rawChemicalQuantity != "0")
-                            {
-                                <p class="card-text" style="color: black">@rawChemicalQuantity</p>
-                            }
-                        }*@
 
                         <form method="post"
-                              asp-page-handler="craft"
+                              asp-page-handler="react"
                               asp-route-name="@reaction.Name"
                               asp-route-state="@reaction.State"
                               asp-route-catergory="@reaction.Category"
@@ -142,15 +200,57 @@
 
                             }
 
-                            @*<input type="password" class="form-control" name="verify" placeholder="Access Key" style="width: 80%; float: left; margin-right: 5px;" />*@
-
-                            <input class="btn btn-success" type="submit" value="Craft" style="float: left" />
+                            <input type="password" class="form-control" name="access" placeholder="Access Key" />
+                            <input class="btn btn-success" type="submit" value="React" style="float: left" />
                         </form>
+
                     </div>
+                </div>*@
+
+            <div class="reaction_card">
+
+                <div>
+                    <h1 class="reaction_image">@reaction.Image</h1>
                 </div>
-            }
-        </div>
+                <h3 class="chemical_name">@reaction.Name</h3>
+                <h4 class="chemcial_catergory">@reaction.Category</h4>
+
+                <div class="chemical_needed">
+                    @for (var i = 0; i < reaction.RawChemical.Count; i++)
+                    {
+                        if (reaction.RawChemical[i] != "" & reaction.RawChemicalQuantity[i] != 0)
+                        {
+                            <p class="card-text">@reaction.RawChemical[i] x @reaction.RawChemicalQuantity[i]</p>
+                        }
+
+                    }
+                </div>
 
 
+                <form method="post"
+                      asp-page-handler="react"
+                      asp-route-name="@reaction.Name"
+                      asp-route-state="@reaction.State"
+                      asp-route-catergory="@reaction.Category"
+                      asp-route-activeLocation="@activeLocation">
+
+                    @{
+
+                        foreach (var rawChemical in reaction.RawChemical)
+                        {
+
+                            <input type="hidden" name="rawChemical[]" value="@rawChemical" />
+                        }
+
+                    }
+
+
+                    <input type="password" class="access_input_reaction" name="access" placeholder="Access Key" />
+                    <input class="card_btn" type="submit" value="React" />
+                </form>
+            </div>
+
+        }
     </div>
+</div>
 

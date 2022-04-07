@@ -18,7 +18,7 @@ namespace The_Inventory.Models
 		public string Image { get; set; } = string.Empty;
 
 		public List<string> RawChemical { get; set; }
-		public List<string> RawChemicalQuantity { get; set; }
+		public List<int> RawChemicalQuantity { get; set; }
 
 		public Reaction()
 		{

@@ -34,5 +34,22 @@ namespace The_Inventory.Pages
 
         }
 
+        public IActionResult OnPostBuy(string name, int locationId, int cost, int money, int newQuantity, string access)
+        {
+
+            if (Database.CheckBuyAccess(name, access))
+            {
+                Database.chemicalIncrease(name, locationId, newQuantity);
+                Database.moneyDecrease(name, locationId, cost, money, newQuantity);
+
+                return Redirect($"./");
+
+            }
+            else
+            {
+                return Redirect($"./?message=you don't have acccess to buy");
+            }
+
+        }
     }
 }

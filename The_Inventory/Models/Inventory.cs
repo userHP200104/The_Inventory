@@ -9,6 +9,7 @@ namespace The_Inventory.Models
 
 		// Chemicals variable called form our frontend
 		public List<Reaction> Reactions = new List<Reaction>();
+		//public List<Reaction> ReactionsQunatity = new List<Reaction>();
 		public List<Chemical> Chemicals = new List<Chemical>();
 		public List<Location> Locations = new List<Location>();
 		public List<Location> ActiveLocation = new List<Location>();
@@ -19,6 +20,7 @@ namespace The_Inventory.Models
 		{
 
 			Reactions = Database.GetAllReactions();
+			//ReactionsQunatity = Database.GetAllReactionsQunatity();
 			Chemicals = Database.GetAllChemicals();
 			Locations = Database.getAllLocations();
 			ActiveLocation = Database.getActiveLocation();
