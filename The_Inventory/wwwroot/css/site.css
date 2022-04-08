@@ -143,6 +143,7 @@ nav {
     color: #fff;
     text-align: center;
     outline: 3px solid #00ffa0;
+    position: fixed;
     border-radius: 0px 25px 25px 0px;
     overflow: scroll;
     float: left;
@@ -246,6 +247,12 @@ a {
     font-weight: 400;
     font-size: 16px;
     margin: -5px 0 0 0;
+}
+
+.location_names {
+    font-weight: 400;
+    font-size: 24px;
+    margin: 16px 0 0 0;
 }
 
 .stock_divider {

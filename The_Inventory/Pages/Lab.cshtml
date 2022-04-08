@@ -96,7 +96,7 @@
                                     <h1 class="image">@chemical.Image</h1>
                                 </div>
                                 <h3 class="chemical_name">@chemical.Name</h3>
-                                <h4 class="chemcial_catergory">raw</h4>
+                                <h4 class="chemcial_catergory">@chemical.Category</h4>
 
 
                                 @{
@@ -232,6 +232,7 @@
                       asp-route-name="@reaction.Name"
                       asp-route-state="@reaction.State"
                       asp-route-catergory="@reaction.Category"
+                      asp-route-image="@reaction.Image"
                       asp-route-activeLocation="@activeLocation">
 
                     @{

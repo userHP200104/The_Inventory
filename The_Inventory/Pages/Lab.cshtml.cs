@@ -47,7 +47,7 @@ namespace The_Inventory.Pages
         }
 
 
-        public IActionResult OnPostReact(string name, string state, string catergory, int activeLocation, string access)
+        public IActionResult OnPostReact(string name, string state, string catergory, int activeLocation, string access, string image)
         {
 
             if (Database.CheckReactAccess(name, access))
@@ -92,7 +92,7 @@ namespace The_Inventory.Pages
 
                 if (hasReacted == 0)
                 {
-                    Database.CreateReaction(name, state, catergory, activeLocation);
+                    Database.CreateReaction(name, state, catergory, activeLocation, image);
                     Database.Pay(name, activeLocation);
 
                     foreach (var chemical in rawChemical)

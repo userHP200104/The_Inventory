@@ -177,7 +177,7 @@ namespace The_Inventory.Services
 		//}
 
 
-		public static void CreateReaction(string name, string state, string catergory, int activeLocation)
+		public static void CreateReaction(string name, string state, string catergory, int activeLocation, string image)
         {
 			// creating a new connection to our db using our config and NuGet package
 			using var con = new MySqlConnection(serverConfiguration);
@@ -221,7 +221,7 @@ namespace The_Inventory.Services
             }
             else
             {
-                InsertNewChemical(name, state, catergory, activeLocation);
+                InsertNewChemical(name, state, catergory, activeLocation, image);
             }
         }
 
@@ -242,7 +242,7 @@ namespace The_Inventory.Services
 			cmd.ExecuteNonQuery();
 		}
 
-		public static void InsertNewChemical(string name, string state, string catergory, int activeLocation)
+		public static void InsertNewChemical(string name, string state, string catergory, int activeLocation, string image)
         {
 			// creating a new connection to our db using our config and NuGet package
 			using var con = new MySqlConnection(serverConfiguration);
@@ -250,7 +250,7 @@ namespace The_Inventory.Services
 
 			 //TODO: Create cost calculation function
 
-			string sql= "INSERT INTO `chemical` (`location_id`, `name`, `quantity`, `cost`, `state`, `catergory`, `image`, `access_key`) VALUES (@activeLocation, @name, '1', '50', @state, @catergory, '/', SHA('1234'));";
+			string sql= "INSERT INTO `chemical` (`location_id`, `name`, `quantity`, `cost`, `state`, `catergory`, `image`, `access_key`) VALUES (@activeLocation, @name, '1', '50', @state, @catergory, @image, SHA('1234'));";
 
 			using var cmd = new MySqlCommand(sql, con);
 
@@ -258,6 +258,7 @@ namespace The_Inventory.Services
 			cmd.Parameters.AddWithValue("@state", state);
 			cmd.Parameters.AddWithValue("@catergory", catergory);
 			cmd.Parameters.AddWithValue("@activeLocation", activeLocation);
+			cmd.Parameters.AddWithValue("@image", image);
 
 			cmd.Prepare();
 			cmd.ExecuteNonQuery();
