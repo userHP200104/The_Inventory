@@ -18,7 +18,7 @@
     "The_Inventory": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5531",
+      "applicationUrl": "http://localhost:57724",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

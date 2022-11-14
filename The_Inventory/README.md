@@ -1,41 +1,39 @@
-<!-- REPLACE ALL THE [USERNAME] TEXT WITH YOUR GITHUB PROFILE NAME & THE [PROJECTNAME] WITH THE NAME OF YOUR GITHUB PROJECT -->
+<!-- REPLACE ALL THE [userHP200104] TEXT WITH YOUR GITHUB PROFILE NAME & THE [The_Inventory] WITH THE NAME OF YOUR GITHUB PROJECT -->
 
 <!-- Repository Information & Links-->
 <br />
 
-![GitHub repo size](https://img.shields.io/github/repo-size/username/projectname?color=%000000)
-![GitHub watchers](https://img.shields.io/github/watchers/username/projectname?color=%000000)
-![GitHub language count](https://img.shields.io/github/languages/count/username/projectname?color=%000000)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/username/projectname?color=%000000)
+![GitHub repo size](https://img.shields.io/github/repo-size/userHP200104/The_Inventory?color=%000000)
+![GitHub watchers](https://img.shields.io/github/watchers/userHP200104/The_Inventory?color=%000000)
+![GitHub language count](https://img.shields.io/github/languages/count/userHP200104/The_Inventory?color=%000000)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/userHP200104/The_Inventory?color=%000000)
 [![LinkedIn][linkedin-shield]][linkedin-url]
-[![Instagram][instagram-shield]][instagram-url]
 [![Behance][behance-shield]][behance-url]
 
 <!-- HEADER SECTION -->
-<h5 align="center" style="padding:0;margin:0;">Your Name & Surname</h5>
-<h5 align="center" style="padding:0;margin:0;">Student Number</h5>
-<h6 align="center">Subject Name & Year</h6>
+<h5 align="center" style="padding:0;margin:0;">Hansin Prema</h5>
+<h5 align="center" style="padding:0;margin:0;">200104</h5>
+<h6 align="center">Interactive Development 300</h6>
 </br>
 <p align="center">
 
-  <a href="https://github.com/username/projectname">
-    <img src="path/to/logo" alt="Logo" width="140" height="140">
+  <a href="https://github.com/userHP200104/The_Inventory">
+    <img src="readMeAssets/logo.png" alt="Logo">
   </a>
   
-  <h3 align="center">Project Name</h3>
+  <h3 align="center">The_Inventory</h3>
 
   <p align="center">
-    Short Project Slogan / Description <br>
-      <a href="https://github.com/username/projectname"><strong>Explore the docs »</strong></a>
+    Chemical Manufacturer Stock Inventory<br>
+      <a href="https://github.com/userHP200104/The_Inventory"><strong>Explore the docs »</strong></a>
    <br />
    <br />
-   <a href="path/to/demonstration/video">View Demo</a>
+    <a href="https://github.com/userHP200104/The_Inventory/issues">Report Bug</a>
     ·
-    <a href="https://github.com/username/projectname/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/username/projectname/issues">Request Feature</a>
+    <a href="https://github.com/userHP200104/The_Inventory/issues">Request Feature</a>
 </p>
 <!-- TABLE OF CONTENTS -->
+
 ## Table of Contents
 
 * [About the Project](#about-the-project)
@@ -53,14 +51,7 @@
    * [Implementation Process](#implementation-process)
         * [Highlights](#highlights)
         * [Challenges](#challenges)
-   * [Reviews and Testing](#peer-reviews)
-        * [Feedback from Reviews](#feedback-from-reviews)
-        * [Unit Tests](#unit-tests)
-   * [Future Implementation](#peer-reviews)
-* [Final Outcome](#final-outcome)
-    * [Mockups](#mockups)
-    * [Video Demonstration](#video-demonstration)
-* [Conclusion](#conclusion)
+   * [Future Implementation](#future-implementation)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
 * [License](#license)
@@ -70,17 +61,19 @@
 <!--PROJECT DESCRIPTION-->
 ## About the Project
 <!-- header image of project -->
-![image1][image1]
+![image5][image5]
 
 ### Project Description
 
-A nice introduction to this amazing project of mine.
+A chemical inventory for Chem Co. which allows you to pay raw chemicals and make chemical compounds as well as manage the inventory of multiple warehouses.
 
 ### Built With
 
-* [Technology Name](path/to/technology/website)
-* [Technology Name](path/to/technology/website)
-* [Technology Name](path/to/technology/website)
+* [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet)
+* [mySQL database](https://www.mysql.com/)
+* [Visual Studio](https://visualstudio.microsoft.com/vs/mac/)
+* [GitHub](https://github.com/)
+* [Mamp](https://www.mamp.info/en/mac/)
 
 <!-- GETTING STARTED -->
 <!-- Make sure to add appropriate information about what prerequesite technologies the user would need and also the steps to install your project on their own mashines -->
@@ -90,77 +83,84 @@ The following instructions will get you a copy of the project up and running on 
 
 ### Prerequisites
 
-Ensure that you have the latest version of [Software](path/to/where/they/can/download/software) installed on your machine. The [Plugin](path/to/where/they/can/download/plugin) plugin will also be required.
-
+Ensure that you have the latest version of [Visual Studio](https://visualstudio.microsoft.com/vs/mac/) installed on your machine.
 ### How to install
 
 ### Installation
 Here are a couple of ways to clone this repo:
 
-1. Software </br>
-`Android Studio` -> `File` -> `New` -> `From Version Control` -> `Git`</br>
-Enter `https://github.com/username/projectname.git` into the URL field and press the `Clone` button.
-
-2. Clone Repository </br>
+1. Clone Repository </br>
 Run the following in the command-line to clone the project:
    ```sh
-   git clone https://github.com/username/projectname.git
+   git clone https://github.com/userHP200104/The_Inventory.git
    ```
-    Open `Software` and select `File | Open...` from the menu. Select cloned directory and press `Open` button
+    Open `Software` and select `File | Open...` from the menu. Select cloned directory and press `Open` button.
 
-3. Install Dependencies </br>
-Run the following in the command-line to install all the required dependencies:
+3. Start your [MAMP](https://www.mamp.info/en/mac/) Server.
+
+4. Export the [TheInventory.sql](readMeAssets/TheInventory.sql) file to your [myPHPAdmin](http://localhost:8888/phpMyAdmin5/).
+
+4. Make sure to change the access_key using SHA2('your_access_key') in the chemical and reaction tables using:
+   ```sql
+   UPDATE chemicals SET access_key = SHA2('your_access_key');
+   UPDATE reaction SET access_key = SHA2('your_access_key');
+   ```
+
+4. In the Services folder open Database.cs and change the database connection string :
    ```sh
-   npm install
+      private static string serverConfiguration = @"server=localhost;port=8889 userid=root;password=root;database=TheInventory";
    ```
 
-4. Get a free API Key at [https://example.com](https://example.com) and enter it in the `config.js` file:
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+5. To get the required NuGet packages right-click on the `Dependencies Folder` and click on `Restore`.
+
+6. To run the project click on `Play Button`.
 
 
 <!-- FEATURES AND FUNCTIONALITY-->
 <!-- You can add the links to all of your imagery at the bottom of the file as references -->
+</br>
+
 ## Features and Functionality
+### Home
+
+From this page the user can see what chemicals are almost out of stock. They can choose to buy more from this page. You can
+
+In the side navigation you can also view which ware house you are in and how many resources are available.
 
 ![image2][image2]
-### Feature 1
 
-Description of Feature
+### Lab
+
+From this page you can veiw all the chemical you have in stock and in the reaction lab you can react raw chemical to form chemical componunds.
+
+To buy or react you need to have an authorisation code to move forward with the tranaction or reaction.
 
 ![image3][image3]
-### Feature 2
 
-Description of Feature
+### Warehouse
+
+From this page you can view the stock of all the warehouse. You can also change your location from this page to manage the inventories of the other locations.
 
 ![image4][image4]
-### Feature 3
-
-Description of Feature
-
-![image5][image5]
 
 
 <!-- CONCEPT PROCESS -->
 <!-- Briefly explain your concept ideation process -->
 ## Concept Process
 
-The `Conceptual Process` is the set of actions, activities and research that was done when starting this project.
-
 ### Ideation
-
-![image5][image5]
-<br>
-![image6][image6]
 
 ### Wireframes
 
-![image7][image7]
+![image8][image8]
 
 ### User-flow
 
-![image8][image8]
+![image7][image7]
+
+### Entity–Relationship Diagram
+
+![image6][image6]
 
 <!-- DEVELOPMENT PROCESS -->
 ## Development Process
@@ -170,64 +170,30 @@ The `Development Process` is the technical implementations and functionality don
 ### Implementation Process
 <!-- stipulate all of the functionality you included in the project -->
 
-* Made use of both `functionality` to implement a specific feature.
-* `MVC/MVVM` design architecture implemented.
-* `Plugin` for this.
-* ETC.
+* Project created and `Frontend` implemented.
+* `SQL Database` set up and link using `MAMP` and `MyPhpAdmin`.
+* `CRUD` added to the chemical stock.
+
 
 #### Highlights
 <!-- stipulated the highlight you experienced with the project -->
-* Sunshine.
-* Rainbows.
+* This was a very fun project and challenging project to create since it was my first time coding in C# and ASP.NET.
 
 #### Challenges
 <!-- stipulated the challenges you faced with the project and why you think you faced it or how you think you'll solve it (if not solved) -->
-* Bugs.
-* Bugs.
+* Making calls to the `Database`. This took some time to solve but once I got it right it was easy to continue implementing it.
 
-### Reviews & Testing
-<!-- stipulate how you've conducted testing in the form of peer reviews, feedback and also functionality testing, like unit tests (if applicable) -->
-
-#### Feedback from Reviews
-
-`Peer Reviews` were conducted by my fellow students and lecturer. The following feedback I found useful:
-
-* Feedback one.
-* Feedback two.
-
-#### Unit Tests
-
-`Unit Tests` were conducted to establish working functionality. Here are all the tests that were ran:
-
-* Test 1 of this functionality
-* Test 2 of this functionality
 
 ### Future Implementation
 <!-- stipulate functionality and improvements that can be implemented in the future. -->
 
-* Future 1.
-* Future 2.
+* Trading chemicals between warehouses.
 
-<!-- MOCKUPS -->
-## Final Outcome
-
-### Mockups
-
-![image9][image9]
-<br>
-![image10][image10]
-
-<!-- VIDEO DEMONSTRATION -->
-### Video Demonstration
-
-To see a run through of the application, click below:
-
-[View Demonstration](path/to/video/demonstration)
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/username/projectname/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/userHP200104/The_Inventory/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -243,46 +209,38 @@ Contributions are what makes the open-source community such an amazing place to 
 <!-- AUTHORS -->
 ## Authors
 
-* **Your Name & Surname** - [username](https://github.com/username)
+* **Your Name & Surname** - userHP200104(https://github.com/userHP200104)
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.\
+Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- LICENSE -->
 ## Contact
 
-* **Your Name & Surname** - [email@address](mailto:email@address) - [@instagram_handle](https://www.instagram.com/instagram_handle/) 
-* **Project Link** - https://github.com/username/projectname
+* **Hansin Prema** - [hansinprema@gmail.com](mailto:hansinprema@gmail.com) 
+* **Project Link** - https://github.com/userHP200104/The_Inventory
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 <!-- all resources that you used and Acknowledgements here -->
-* [Resource Name](path/to/resource)
-* [Resource Name](path/to/resource)
-* [Resource Name](path/to/resource)
-* [Resource Name](path/to/resource)
-* [Resource Name](path/to/resource)
+* [ASP.NET Docs](https://learn.microsoft.com/en-us/aspnet/core/?view=aspnetcore-7.0)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[image1]: /path/to/image.png
-[image2]: /path/to/image.png
-[image3]: /path/to/image.png
-[image4]: /path/to/image.png
-[image5]: /path/to/image.png
-[image6]: /path/to/image.png
-[image7]: /path/to/image.png
-[image8]: /path/to/image.png
-[image9]: /path/to/image.png
-[image10]: /path/to/image.png
+[image1]: readMeAssets/Logo.png
+[image2]: readMeAssets/1.png
+[image3]: readMeAssets/2.png
+[image4]: readMeAssets/3.png
+[image5]: readMeAssets/cover.png
+[image6]: readMeAssets/ERD.png
+[image7]: readMeAssets/User%20Flow.png
+[image8]: readMeAssets/wireframes.png
 
 
 <!-- Refer to https://shields.io/ for more information and options about the shield links at the top of the ReadMe file -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/nameonlinkedin/
-[instagram-shield]: https://img.shields.io/badge/-Instagram-black.svg?style=flat-square&logo=instagram&colorB=555
-[instagram-url]: https://www.instagram.com/instagram_handle/
+[linkedin-url]: https://www.linkedin.com/in/hansin-prema-b474401a1/
 [behance-shield]: https://img.shields.io/badge/-Behance-black.svg?style=flat-square&logo=behance&colorB=555
-[behance-url]: https://www.behance.net/name-on-behance/
+[behance-url]: https://www.behance.net/hansinprema1
